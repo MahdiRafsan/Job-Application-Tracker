@@ -1,0 +1,37 @@
+{
+  "name": "job-application-tracker",
+  "version": "1.0.0",
+  "description": "Job Application Tracker",
+  "main": "backend/api/app.js",
+  "scripts": {
+    "start": "node backend/api/app.js",
+    "server": "nodemon backend/api/app.js",
+    "git": "node script.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MahdiRafsan/Job-Application-Tracker.git"
+  },
+  "keywords": [],
+  "author": "Mahdi Chowdhury",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MahdiRafsan/Job-Application-Tracker/issues"
+  },
+  "homepage": "https://github.com/MahdiRafsan/Job-Application-Tracker#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "colors": "^1.4.0",
+    "dotenv": "^16.0.2",
+    "express": "^4.18.1",
+    "http-status-codes": "^2.2.0",
+    "joi": "^17.6.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.5.4",
+    "mongoose-unique-validator": "^3.1.0",
+    "validator": "^13.7.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  }
+}
