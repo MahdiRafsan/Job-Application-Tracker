@@ -4,7 +4,10 @@ const { NotFoundError, BadRequestError } = require("../errors");
 const User = require("../models/userModel");
 const ResetToken = require("../models/resetTokenModel");
 const sendEmail = require("../utils/sendEmail");
-const { generateResetToken, hashResetToken} = require("../utils/passwordReset");
+const {
+  generateResetToken,
+  hashResetToken,
+} = require("../utils/passwordReset");
 
 const updatePassword = async (req, res, next) => {
   try {
@@ -48,19 +51,12 @@ const updatePassword = async (req, res, next) => {
 
     res
       .status(StatusCodes.OK)
-      .send({ message: "Password updated successfully." });
+      .send({ message: "Success! Your password has been updated." });
   } catch (err) {
     next(err);
   }
 };
 
-// takes an email or username from body →
-// checks for user against database →
-// generates a random token with short expiry →
-// if token exists, invalidate (delete) them →
-// save it to database →
-// sends user an email
-// show response message →
 const resetPasswordRequest = async (req, res, next) => {
   try {
     const { email, username } = req.body;
@@ -86,26 +82,30 @@ const resetPasswordRequest = async (req, res, next) => {
       userId: user._id,
       token: generateResetToken(),
     });
-    // sendEmail(user.email);
-    console.log(resetToken); // send email with token/reset link
+    const resetMessage = `You are receiving this auto-generated email because you (or someone else) has requested the reset of a password for your Job Tracker account.
+
+Please use the link to reset your password:
+http://${req.headers.host}/password/${resetToken.token}
+
+Please disregard this email if you have not made this request. Your password will not be changed.
+
+Thanks,
+Job Tracker Team`;
+    sendEmail({
+      email: user.email,
+      subject: "Job App Tracker Password Reset",
+      message: resetMessage,
+    });
     await resetToken.save();
 
     res.status(StatusCodes.ACCEPTED).send({
-      message:
-        "An email with the password reset link has been sent to your email!",
+      message: `An email has been sent to ${user.email} with further instructions.`,
     });
   } catch (err) {
     next(err);
   }
 };
 
-// user gets password reset link from email
-// check to see if token exists inside database
-// if token exists, check if it is valid
-// get new password and confirm password from the body
-// update user password
-// delete the jwt token from database to ensure single use
-// send user a confimation message of successful password change
 const resetPassword = async (req, res, next) => {
   try {
     const hashedToken = hashResetToken(req.params.token);
@@ -140,12 +140,23 @@ const resetPassword = async (req, res, next) => {
     user.password = newPassword;
     await user.save();
 
-    // remove currently used token essentially making it valid for one time use
-    await resetToken.remove();
+    // delete all tokens associated with the user
+    await ResetToken.deleteMany({ userId: user._id });
 
-    res.send({ message: "Password updated successfully." });
+    const confirmMessage = `This is an auto-generated email to confirm that your password for the Job Tracker app has been successfully reset.
+
+Thanks,
+Job Tracker Team`;
+
+    sendEmail({
+      email: user.email,
+      subject: "Password Reset Successfully",
+      message: confirmMessage,
+    });
+    res.status(StatusCodes.OK).send({
+      message: "Success! Your password has been updated.",
+    });
   } catch (err) {
-    console.log(err);
     next(err);
   }
 };
