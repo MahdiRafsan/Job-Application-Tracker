@@ -13,9 +13,9 @@ const userSchema = Schema(
       unique: true,
       validate: [
         {
-          validator: (value) => validator.isLength(value, { min: 4, max: 20 }),
+          validator: (value) => validator.isLength(value, { min: 5, max: 20 }),
           message: (props) =>
-            `Length of username should be between 4-20 characters. Got ${props.value.length} characters!`,
+            `Length of username should be between 5-20 characters. Got ${props.value.length} characters!`,
         },
         {
           validator: (value) => validator.isAlphanumeric(value),

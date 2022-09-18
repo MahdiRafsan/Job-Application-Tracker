@@ -31,7 +31,8 @@ const getUser = async (req, res, next) => {
 const updateUser = async (req, res, next) => {
   try {
     const { username, email, profile } = req.body;
-    const user = await User.findById(req.params.id);
+    const {bio, firstName, lastName, avatar} = profile || {}
+    const user = await User.findById(req.params.id).select("-password");
 
     if (!user) {
       throw new NotFoundError(
@@ -45,7 +46,10 @@ const updateUser = async (req, res, next) => {
         $set: {
           username,
           email,
-          profile,
+          "profile.lastName": lastName === "" ? undefined : lastName, 
+          "profile.firstName": firstName, 
+          "profile.avatar": avatar, 
+          "profile.bio": bio,
         },
       },
       { new: true, runValidators: true }
@@ -74,7 +78,7 @@ const deleteUser = async (req, res, next) => {
 
     res
       .status(StatusCodes.OK)
-      .send({ message: `User with ${req.params.id} deleted successfully` });
+      .send({ message: `User deleted successfully` });
   } catch (err) {
     next(err);
   }

@@ -2,7 +2,7 @@ const { StatusCodes } = require("http-status-codes");
 
 const User = require("../models/userModel");
 
-const { generateToken, isTokenValid } = require("../utils/jwt");
+const { generateToken } = require("../utils/jwt");
 const {
   BadRequestError,
   NotFoundError,
@@ -31,6 +31,7 @@ const register = async (req, res, next) => {
       });
     }
   } catch (err) {
+    // console.log(err)
     next(err);
   }
 };

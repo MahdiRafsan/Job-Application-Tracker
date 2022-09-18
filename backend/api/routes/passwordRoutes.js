@@ -9,6 +9,6 @@ const {
 
 router.patch("/:id", updatePassword);
 router.post("/", resetPasswordRequest);
-router.post("/:token", resetPassword);
+router.patch("/:token", resetPassword);
 
 module.exports = router;
