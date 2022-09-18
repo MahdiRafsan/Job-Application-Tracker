@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const userRoutes = require("./routes/userRoutes");
 const authRoutes = require("./routes/authRoutes");
 const passwordRoutes = require("./routes/passwordRoutes");
+const jobRoutes = require("./routes/jobsRoutes");
 const connectDB = require("./config/db");
 const errorHandler = require("./middlewares/errorHandler");
 const { NotFoundError } = require("./errors");
@@ -22,6 +23,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/user", userRoutes);
 app.use("/api/v1/password", passwordRoutes);
+app.use("/api/v1/job", jobRoutes);
 
 app.get("/api/v1", async (req, res) => {
   res.status(200).send({ Status: "OK" });
