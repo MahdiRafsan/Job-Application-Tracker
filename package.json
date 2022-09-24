@@ -6,6 +6,8 @@
   "scripts": {
     "start": "node backend/api/app.js",
     "server": "nodemon backend/api/app.js",
+    "client": "npm start --prefix frontend",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
     "git": "node script.js"
   },
   "repository": {
@@ -33,6 +35,7 @@
     "validator": "^13.7.0"
   },
   "devDependencies": {
+    "concurrently": "^7.4.0",
     "nodemon": "^2.0.19"
   }
 }

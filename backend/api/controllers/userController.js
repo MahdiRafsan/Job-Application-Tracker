@@ -31,7 +31,7 @@ const getUser = async (req, res, next) => {
 const updateUser = async (req, res, next) => {
   try {
     const { username, email, profile } = req.body;
-    const {bio, firstName, lastName, avatar} = profile || {}
+    const { bio, firstName, lastName, avatar } = profile || {};
     const user = await User.findById(req.params.id).select("-password");
 
     if (!user) {
@@ -46,9 +46,9 @@ const updateUser = async (req, res, next) => {
         $set: {
           username,
           email,
-          "profile.lastName": lastName === "" ? undefined : lastName, 
-          "profile.firstName": firstName, 
-          "profile.avatar": avatar, 
+          "profile.lastName": lastName === "" ? undefined : lastName,
+          "profile.firstName": firstName,
+          "profile.avatar": avatar,
           "profile.bio": bio,
         },
       },
@@ -76,9 +76,7 @@ const deleteUser = async (req, res, next) => {
 
     await user.remove();
 
-    res
-      .status(StatusCodes.OK)
-      .send({ message: `User deleted successfully` });
+    res.status(StatusCodes.OK).send({ message: "User deleted successfully" });
   } catch (err) {
     next(err);
   }

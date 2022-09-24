@@ -69,7 +69,7 @@ const updateJob = async (req, res, next) => {
     });
 
     res.status(StatusCodes.OK).send({
-      message: "User updated successfully.",
+      message: "Job updated successfully.",
       updatedJob,
     });
   } catch (err) {
