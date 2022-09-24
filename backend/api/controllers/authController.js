@@ -10,9 +10,17 @@ const {
 } = require("../errors");
 
 const register = async (req, res, next) => {
-  const { username, password, email, profile } = req.body;
-
   try {
+    const { username, password, confirmPassword, email, profile } = req.body;
+
+    if (password && !confirmPassword) {
+      throw new BadRequestError("Confirm Password is a required field");
+    }
+
+    if (password && password !== confirmPassword) {
+      throw new BadRequestError("Passwords must match!");
+    }
+
     const user = await User.create({
       username,
       email,
@@ -22,7 +30,7 @@ const register = async (req, res, next) => {
 
     if (user) {
       res.status(StatusCodes.CREATED).json({
-        message: "User created successfully!",
+        message: "New account created successfully!",
         user: {
           _id: user.id,
           username,
@@ -31,15 +39,15 @@ const register = async (req, res, next) => {
       });
     }
   } catch (err) {
-    // console.log(err)
+    // console.log(err);
     next(err);
   }
 };
 
 const login = async (req, res, next) => {
-  const { email, username, password } = req.body;
+  const { usernameOrEmail, password } = req.body;
   try {
-    if (!(email || username)) {
+    if (!usernameOrEmail) {
       throw new BadRequestError(
         "Email or Username must be provided for login!"
       );
@@ -49,7 +57,10 @@ const login = async (req, res, next) => {
       throw new BadRequestError("Password must be provided for login!");
     }
 
-    const user = await User.findOne(email ? { email } : { username });
+    // const user = await User.findOne(email ? { email } : { username });
+    const user = await User.findOne({
+      $or: [{ email: usernameOrEmail }, { username: usernameOrEmail }],
+    });
 
     if (!user) {
       throw new NotFoundError(
@@ -79,11 +90,11 @@ const login = async (req, res, next) => {
 };
 
 const logout = async (req, res) => {
-  res.json("logout");
+  res.status(StatusCodes.OK).send("User logged out successfully");
 };
 
 module.exports = {
   register,
   login,
-  logout
+  logout,
 };

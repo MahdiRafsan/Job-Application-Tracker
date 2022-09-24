@@ -59,12 +59,15 @@ const updatePassword = async (req, res, next) => {
 
 const resetPasswordRequest = async (req, res, next) => {
   try {
-    const { email, username } = req.body;
-    if (!(email || username)) {
+    const { usernameOrEmail } = req.body;
+    if (!usernameOrEmail) {
       throw new BadRequestError("Please provide an email or a username!");
     }
 
-    const user = await User.findOne(email ? { email } : { username });
+    const user = await User.findOne({
+      $or: [{ email: usernameOrEmail }, { username: usernameOrEmail }],
+    });
+
     if (!user) {
       throw new NotFoundError(
         "No user with that email or username is found! Please enter a different value."
