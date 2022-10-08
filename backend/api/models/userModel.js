@@ -53,13 +53,14 @@ const userSchema = Schema(
       bio: {
         type: String,
         validate: {
-          validator: (value) => validator.isLength(value, { max: 15 }),
+          validator: (value) => validator.isLength(value, { max: 300 }),
           message: (props) =>
-            `Bio can not be more than 15 characters. Got ${props.value.length} characters!`,
+            `Bio can not be more than 300 characters. Got ${props.value.length} characters!`,
         },
       },
-      avatar: {
-        type: String,
+      image: {
+        url: String,
+        cloudinary_id: String,
       },
     },
   },
