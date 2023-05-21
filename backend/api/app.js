@@ -2,13 +2,18 @@ require("dotenv").config();
 require("colors");
 const express = require("express");
 const mongoose = require("mongoose");
+const cookieParser = require("cookie-parser");
+const cors = require("cors");
+
 const userRoutes = require("./routes/userRoutes");
 const authRoutes = require("./routes/authRoutes");
 const passwordRoutes = require("./routes/passwordRoutes");
 const jobRoutes = require("./routes/jobsRoutes");
 const connectDB = require("./config/db");
+const {CORS_OPTIONS} = require('./config/constants')
 const errorHandler = require("./middlewares/errorHandler");
 const { NotFoundError } = require("./errors");
+
 const port = process.env.PORT || 8000;
 
 const app = express();
@@ -19,6 +24,8 @@ process.env.NODE_ENV === "production"
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors(CORS_OPTIONS));
+app.use(cookieParser());
 
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/user", userRoutes);

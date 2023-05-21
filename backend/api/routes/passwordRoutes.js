@@ -6,9 +6,10 @@ const {
   resetPasswordRequest,
   resetPassword,
 } = require("../controllers/passwordController");
+const isAuthorized = require("../middlewares/authMiddleware");
 
-router.patch("/:id", updatePassword);
+router.patch("/:id", isAuthorized, updatePassword);
 router.post("/", resetPasswordRequest);
-router.patch("/:token", resetPassword);
+router.put("/:token", resetPassword);
 
 module.exports = router;

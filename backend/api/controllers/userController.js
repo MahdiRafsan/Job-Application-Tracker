@@ -54,7 +54,7 @@ const updateUser = async (req, res, next) => {
     }
 
     // delete previous image from cloudinary if user is uploading a new image
-    if (req.file) {
+    if (req.file && user.profile.image.cloudinary_id) {
       await cloudinary.uploader.destroy(user.profile.image.cloudinary_id);
     }
 
@@ -99,6 +99,9 @@ const deleteUser = async (req, res, next) => {
       );
     }
 
+    if (user.profile.image && user.profile.image.cloudinary_id) {
+      await cloudinary.uploader.destroy(user.profile.image.cloudinary_id);
+    }
     await user.remove();
 
     res.status(StatusCodes.OK).send({ message: "User deleted successfully" });

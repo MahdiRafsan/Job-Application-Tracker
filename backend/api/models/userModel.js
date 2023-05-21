@@ -2,6 +2,8 @@ const mongoose = require("mongoose");
 const validator = require("validator");
 const uniqueValidator = require("mongoose-unique-validator");
 const brcypt = require("bcrypt");
+const Job = require("./jobsModel");
+const ResetToken = require("./resetTokenModel");
 
 const Schema = mongoose.Schema;
 
@@ -93,5 +95,10 @@ userSchema.pre("save", async function (next) {
 userSchema.methods.comparePassword = async function (plainPassword) {
   return await brcypt.compare(plainPassword, this.password);
 };
+
+userSchema.post("remove", async function (next) {
+  await Job.deleteMany({ userId: this._id });
+  await ResetToken.deleteMany({ userId: this._id });
+});
 
 module.exports = mongoose.model("User", userSchema);

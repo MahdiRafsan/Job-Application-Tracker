@@ -15,11 +15,16 @@ const JOB_TYPES = {
   message: "{VALUE} is not supported",
 };
 const SALARY_FREQUENCY = {
-  values: ["hourly", "monthly", "annually"],
+  values: ["", "hourly", "monthly", "annually"],
   message: "{VALUE} is not supported",
 };
 const APPLICATION_STATUS = {
   values: ["pending", "interviewing", "declined"],
+  message: "{VALUE} is not supported",
+};
+
+const OFFER_DECISION = {
+  values: ["", "accepted", "rejected", "still considering"],
   message: "{VALUE} is not supported",
 };
 
@@ -32,16 +37,16 @@ const jobsSchema = Schema(
     },
     companyName: {
       type: String,
-      required: [true, "Company name can't be empty!"],
+      required: [true, "Company Name can't be empty!"],
     },
     jobTitle: {
       type: String,
-      required: [true, "Job title can't be empty"],
+      required: [true, "Job Title can't be empty"],
     },
     jobType: {
       type: String,
       enum: JOB_TYPES,
-      required: [true, "Job type can't be empty"],
+      required: [true, "Job Type can't be empty"],
       lowercase: true,
     },
     jobLocation: {
@@ -52,18 +57,25 @@ const jobsSchema = Schema(
       type: String,
       set: (value) => (value === "" ? undefined : value),
     },
+    salarySpecified: {
+      type: Boolean,
+      default: false,
+      set: (value) => (value === "" ? false : value),
+    },
     baseSalary: {
       currency: {
         type: String,
-        default: "USD",
+        default: undefined,
         set: (value) => (value === "" ? undefined : value),
       },
       value: {
         amount: {
           type: String,
+          set: (value) => (value === "" ? undefined : value),
           validate: {
             validator: (value) => validator.isNumeric(value),
-            message: (props) => `Value must be a number! Got ${props.value}.`,
+            message: (props) =>
+              `Salary amount must be a number! Got ${props.value}.`,
           },
         },
         frequency: {
@@ -76,6 +88,7 @@ const jobsSchema = Schema(
     applicationDate: {
       type: Date,
       default: Date.now,
+      set: (value) => (value === "" ? Date.now() : value),
     },
     associatedEmail: {
       type: String,
@@ -87,15 +100,12 @@ const jobsSchema = Schema(
         message: (props) => `${props.value} is not a valid email address!`,
       },
     },
-    applicationReply: {
-      type: Boolean,
-      default: false,
-    },
     applicationStatus: {
       type: String,
       enum: APPLICATION_STATUS,
       lowercase: true,
       default: "pending",
+      set: (value) => (value === "" ? "pending" : value),
     },
     interviewDate: {
       type: Date,
@@ -104,6 +114,7 @@ const jobsSchema = Schema(
     offerReceived: {
       type: Boolean,
       default: false,
+      set: (value) => (value === "" ? false : value),
     },
     offerDate: {
       type: Date,
@@ -112,10 +123,13 @@ const jobsSchema = Schema(
     offerReply: {
       type: Boolean,
       default: false,
+      set: (value) => (value === "" ? false : value),
     },
-    offerAccepted: {
-      type: Boolean,
-      default: false,
+    offerDecision: {
+      type: String,
+      enum: OFFER_DECISION,
+      lowercase: true,
+      default: "",
     },
     attachedResumeName: {
       type: String,
@@ -147,30 +161,3 @@ const jobsSchema = Schema(
 );
 
 module.exports = mongoose.model("Job", jobsSchema);
-
-// salarySpecified: {
-//   type: Boolean,
-//   default: No,
-// },
-// baseSalary: {
-//   default: function() {
-//     if (this.salarySpecified) {
-//       return {
-//         currency: {
-//           type: String,
-//         },
-//         value: {
-//           amount: {
-//             type: Number,
-//           },
-//           frequency: {
-//             type: String,
-//           },
-//           default: "Not Specified",
-//         }
-//       }
-//     }
-//   else {
-//     return null
-//   }
-// }},

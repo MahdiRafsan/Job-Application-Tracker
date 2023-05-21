@@ -1,6 +1,10 @@
 const { StatusCodes } = require("http-status-codes");
 
-const { NotFoundError, BadRequestError } = require("../errors");
+const {
+  NotFoundError,
+  BadRequestError,
+  UnauthenticatedError,
+} = require("../errors");
 const User = require("../models/userModel");
 const ResetToken = require("../models/resetTokenModel");
 const sendEmail = require("../utils/sendEmail");
@@ -17,6 +21,12 @@ const updatePassword = async (req, res, next) => {
     if (!user) {
       throw new NotFoundError(
         `No user with the id ${req.params.id} is found in the database!`
+      );
+    }
+
+    if (req.user._id.toString() !== req.params.id) {
+      throw new UnauthenticatedError(
+        "You don't have permission to access this route!"
       );
     }
 
@@ -88,7 +98,7 @@ const resetPasswordRequest = async (req, res, next) => {
     const resetMessage = `You are receiving this auto-generated email because you (or someone else) has requested the reset of a password for your Job Tracker account.
 
 Please use the link to reset your password:
-http://${req.headers.host}/password/${resetToken.token}
+${process.env.FRONTEND_URL}/identify/password/${resetToken.token}
 
 Please disregard this email if you have not made this request. Your password will not be changed.
 
@@ -112,6 +122,7 @@ Job Tracker Team`;
 const resetPassword = async (req, res, next) => {
   try {
     const hashedToken = hashResetToken(req.params.token);
+    
     const resetToken = await ResetToken.findOne({ token: hashedToken });
     if (!resetToken) {
       throw new BadRequestError("Invalid Password Reset URL!");

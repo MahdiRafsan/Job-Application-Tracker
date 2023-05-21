@@ -26,6 +26,13 @@ const errorHandler = (err, req, res, next) => {
     customError.details = error;
   }
 
+  // Token Expired Error
+  if (err.name === "TokenExpiredError") {
+    customError.statusCode = StatusCodes.UNAUTHORIZED;
+    customError.reason = getReasonPhrase(StatusCodes.UNAUTHORIZED);
+    customError.details = err.message
+  }
+
   return res.status(customError.statusCode).send(customError);
 };
 
