@@ -1,0 +1,40 @@
+.error-page-container {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.error-image {
+    width: 400px; 
+    height: 400px; 
+}
+
+.error-heading {
+    font-size: 30px;
+    text-transform: uppercase;
+    color: white;
+}
+
+.error-heading span {
+    font-size: 30px;
+}
+
+.error-text {
+    font-size: 18px;
+    color: white;
+}
+
+.error-text a {
+    text-decoration: none;
+    font-size: 22px;
+    color: yellowgreen;
+}
+
+.error-text a:hover {
+    color: yellow;
+    border-bottom: 3px solid yellow
+}

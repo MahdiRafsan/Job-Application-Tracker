@@ -1,3 +1,11 @@
+.spinner-outside-container {
+    height: 60vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .spinner-overlay {
     position: relative;
     top: 0;
