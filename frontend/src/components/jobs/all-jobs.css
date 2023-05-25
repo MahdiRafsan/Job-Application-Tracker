@@ -1,0 +1,19 @@
+.job-page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+    margin-top: -30px;
+}
+
+.bottom-pagination {
+    width: 65%;
+}
+
+.job-page-container .heading {
+    font-size: 28px;
+}
+
+.jobs-container {
+    width: 100%
+}
