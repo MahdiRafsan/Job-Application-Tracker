@@ -1,0 +1,36 @@
+.button-container {
+    margin: 10px 0;
+    padding: 8px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-transform: uppercase;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    color: white;
+    font-weight: bolder;
+    letter-spacing: .5px;
+}
+
+.success {
+    background-color: var(--btn-success)
+}
+
+.danger {
+    background-color: var(--btn-danger)
+}
+
+.info {
+    background-color: var(--btn-info)
+}
+
+.primary {
+    background-color: var(--btn-primary)
+}
+
+.secondary {
+    background-color: var(--btn-secondary);
+    color: black;
+}
