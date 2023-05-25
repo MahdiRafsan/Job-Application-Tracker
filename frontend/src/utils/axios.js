@@ -2,7 +2,7 @@ import axios from "axios";
 import { store } from "../app/store";
 import { refresh } from "../features/auth/authSlice";
 
-const BASE_URL = "http://localhost:8000/api/v1";
+const BASE_URL = "http://job-tracker-api.onrender.com";
 
 let refreshing = null;
 

@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../features/auth/authSlice";
 import { sidebarData } from "./sidebar-data";
 
+import defaultImage from "../../assets/default_image.jpg";
+
 import "./sidebar.css";
 
 const Sidebar = () => {
@@ -39,7 +41,7 @@ const Sidebar = () => {
             </li>
             <li>
               <img
-                src={url}
+                src={url || defaultImage}
                 alt="profile"
                 className={sidebar ? "profile-image open" : " profile-image "}
               />
