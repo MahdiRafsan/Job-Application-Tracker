@@ -1,0 +1,20 @@
+.interview-table table {
+    background-color: #fff;
+    text-transform: capitalize;
+    border: 1px solid black;
+    border-radius: 15px;
+    border-spacing: 0;
+}
+
+.interview-table table tr td{
+    padding: 5px;
+    border: 1px solid black;
+    border-right-width: 1px;
+    border-top-width: 1px;
+    border-bottom-width: 0px;
+    border-left-width: 0px;
+}
+
+.interview-table table tr td:last-child {
+    border-right: 0px;
+  }

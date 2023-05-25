@@ -1,0 +1,48 @@
+.status-data-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.status-data {
+    background-color: #fff;
+    height: 100px;
+    margin: 5px;
+    padding: 10px;
+    border-radius: 7px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.status-data-container .status {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    font-size: 20px;
+}
+
+.status-icon {
+    font-size: 35px;
+}
+
+.status-heading {
+    color: black
+}
+
+.status-data.pending {
+    color: orange;
+    border-bottom: 5px solid orange
+}
+
+.status-data.interviewing {
+    color: var(--btn-info);
+    border-bottom: 5px solid var(--btn-info)
+}
+
+.status-data.declined {
+    color: var(--btn-danger);
+    border-bottom: 5px solid var(--btn-danger)
+}
