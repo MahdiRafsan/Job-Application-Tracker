@@ -1,0 +1,25 @@
+.profile-form .form-input-container,
+.profile-form .textarea-container{
+    display: inline-block;
+    width: 50%;
+    padding: 0 10px;
+}
+
+.profile-form .btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-form button {
+    width: 20%;
+    margin-left: 15px 
+}
+
+.profile-form .image .form-label{
+    margin-bottom: 15px
+}
+
+.profile-form input[type='file'] {
+    border: none;
+}
