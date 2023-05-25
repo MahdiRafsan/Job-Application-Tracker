@@ -1,0 +1,21 @@
+.form-box.search {
+    margin-top: 10px;
+    width: 100%;
+}
+
+.search-form .form-input-container,
+.search-form .dropdown-container {
+    display: inline-block;
+    width: 50%;
+    padding: 0 10px;
+}
+
+.search-form .btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.search-form button {
+    width: 20%;
+}
