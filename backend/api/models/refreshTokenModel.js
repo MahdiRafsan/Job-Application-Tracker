@@ -19,7 +19,7 @@ const refreshTokenSchema = Schema({
   createdAt: {
     type: Date,
     default: Date.now(),
-    expires: 900, // expire after 15 minutes
+    expires: 129600, // expire after 15 days
   },
 });
 

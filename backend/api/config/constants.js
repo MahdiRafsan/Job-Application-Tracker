@@ -1,9 +1,5 @@
 const CORS_OPTIONS = {
-  origin: [
-    "http://localhost:3000",
-    "http://127.0.0.1:3000",
-    "http://localhost:54699",
-  ],
+  origin: ["https://job-tracker.onrender.com"],
   credentials: true,
 };
 
@@ -11,7 +7,7 @@ const COOKIE_OPTIONS = {
   httpOnly: true,
   secure: process.env.NODE_ENV === "production",
   sameSite: "strict",
-  maxAge: 15 * 24 * 60 * 60 * 1000,
+  maxAge: 15 * 24 * 60 * 60 * 1000, // expires after 15 days
 };
 
 module.exports = { CORS_OPTIONS, COOKIE_OPTIONS };
