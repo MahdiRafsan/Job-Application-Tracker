@@ -8,7 +8,7 @@ const COOKIE_OPTIONS = {
   secure: process.env.NODE_ENV === "production",
   sameSite: "none",
   maxAge: 15 * 24 * 60 * 60 * 1000, // expires after 15 days
-  domain: ".onrender.com",
+  domain: "onrender.com",
   path: "/",
 };
 
