@@ -36,7 +36,7 @@ const Sidebar = () => {
                 <FaBars />
               </button>
               <span className={sidebar ? "header open" : "header"}>
-                Job Tracker
+                Job Trek
               </span>
             </li>
             <li>

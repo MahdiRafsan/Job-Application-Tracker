@@ -1,5 +1,5 @@
 const CORS_OPTIONS = {
-  origin: ["https://job-tracker.onrender.com"],
+  origin: ["https://job-trek.onrender.com"],
   credentials: true,
 };
 

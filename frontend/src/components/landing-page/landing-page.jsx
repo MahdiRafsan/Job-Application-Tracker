@@ -6,7 +6,7 @@ const LandingPageComponent = () => {
   return (
     <div className="landing-page-container">
       <header className="landing-page-header">
-        <h1 className="landing-page-logo">Job Tracker</h1>
+        <h1 className="landing-page-logo">Job Trek</h1>
         <div className="landing-page-links">
           <NavLink to="#" activeclassname="active">
             Home
@@ -20,9 +20,9 @@ const LandingPageComponent = () => {
         </div>
       </header>
       <main className="landing-page-body">
-        <h1>Job Tracker</h1>
+        <h1>Job Trek</h1>
         <p>
-          Welcome to Job Tracker!
+          Welcome to Job Trek!
           <br />
           The solution to all your job application tracking needs.
           <br />
@@ -31,7 +31,7 @@ const LandingPageComponent = () => {
         </p>
       </main>
       <footer className="landing-page-footer">
-        <p>&copy; 2022 Job Tracker</p>
+        <p>&copy; 2022 Job Trek</p>
       </footer>
     </div>
   );
