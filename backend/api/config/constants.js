@@ -6,7 +6,7 @@ const CORS_OPTIONS = {
 const COOKIE_OPTIONS = {
   httpOnly: true,
   secure: process.env.NODE_ENV === "production",
-  sameSite: "strict",
+  sameSite: "None",
   maxAge: 15 * 24 * 60 * 60 * 1000, // expires after 15 days
 };
 
