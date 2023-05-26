@@ -9,6 +9,7 @@ const COOKIE_OPTIONS = {
   sameSite: "strict",
   maxAge: 15 * 24 * 60 * 60 * 1000, // expires after 15 days
   domain: ".onrender.com",
+  path: "/",
 };
 
 module.exports = { CORS_OPTIONS, COOKIE_OPTIONS };
